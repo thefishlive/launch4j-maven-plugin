@@ -46,6 +46,8 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.MavenProjectHelper;
+import org.apache.tools.ant.ProjectHelper;
 
 /**
  * Wraps a jar in a Windows executable.
@@ -55,7 +57,7 @@ import org.apache.maven.project.MavenProject;
  * @requiresDependencyResolution compile
  */
 public class Launch4jMojo extends AbstractMojo {
-
+	
 	/**
 	 * The dependencies required by the project.
 	 *
@@ -305,6 +307,11 @@ public class Launch4jMojo extends AbstractMojo {
      */
     private File manifest;
 
+ 	/**
+ 	 * @component
+ 	 */
+ 	private MavenProjectHelper projectHelper;
+
     private File getJar() {
 		return new File(jar);
 	}
@@ -356,7 +363,8 @@ public class Launch4jMojo extends AbstractMojo {
 		Builder b = new Builder(new MavenLog(getLog()), workdir);
 
 		try {
-			b.build();
+			File exeFile = b.build();
+			projectHelper.attachArtifact(project, "exe", exeFile);
 		} catch (BuilderException e) {
 			getLog().error(e);
 			throw new MojoExecutionException("Failed to build the executable; please verify your configuration.", e);
