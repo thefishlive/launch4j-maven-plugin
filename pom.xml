@@ -37,18 +37,41 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
         </license>
     </licenses>
 
+	<profiles>
+		<profile>
+			<id>release-profile</id>
+			<build>
+                <defaultGoal>clean deploy</defaultGoal>
+			</build>
+		</profile>
+	</profiles>
+	
+   	<distributionManagement>
+      	<repository>
+          	<uniqueVersion>false</uniqueVersion>
+          	<id>mcbadgercraft-deploy</id>
+          	<name>mcbadgercraft-deploy</name>
+          	<url>ftp://ftp.mcbadgercraft.com/</url>
+          	<layout>default</layout>
+      	</repository>
+  	</distributionManagement>
+  
     <scm>
-	<connection>https://github.com/vorburger/launch4j-maven-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:vorburger/launch4j-maven-plugin.git</developerConnection>
+		<connection>https://github.com/thefishlive/launch4j-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:thefishlive/launch4j-maven-plugin.git</developerConnection>
         <tag>HEAD</tag>
-	<url>https://github.com/vorburger/launch4j-maven-plugin</url>
+		<url>https://github.com/vorburger/launch4j-maven-plugin</url>
     </scm>
 
     <developers>
-	<developer>
-		<id>PaulJungwirth</id>
-		<name>Paul Jungwirth</name>
-	</developer>
+		<developer>
+			<id>PaulJungwirth</id>
+			<name>Paul Jungwirth</name>
+		</developer>
+		<developer>
+			<id>JamesFitzpatrick</id>
+			<name>James Fitzpatrick</name>
+		</developer>
     </developers>
 
     <dependencies>
@@ -157,17 +180,18 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
                     </execution>
                 </executions>
             </plugin>
-	    <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-release-plugin</artifactId>
-		<version>2.2.2</version>
- 	       	<configuration>
-			<!--https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven
-			    http://jira.codehaus.org/browse/MGPG-9 & http://jira.codehaus.org/browse/MRELEASE-263 -->
-			<mavenExecutorId>forked-path</mavenExecutorId>
-		</configuration>
-	    </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.2</version>
+					<configuration>
+					<!--https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven
+						http://jira.codehaus.org/browse/MGPG-9 & http://jira.codehaus.org/browse/MRELEASE-263 -->
+					<mavenExecutorId>forked-path</mavenExecutorId>
+				</configuration>
+			</plugin>
         </plugins>
+		
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
@@ -175,6 +199,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
                 <version>1.0-alpha-6</version>
             </extension>
         </extensions>
+		
         <pluginManagement>
         	<plugins>
         		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
